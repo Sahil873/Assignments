@@ -4,6 +4,15 @@
 */
 
 function isPalindrome(str) {
+  let regex = /[\s.,\/#!$%\^&\*;:{}=\-_`~()\"'?]/g;
+  let lowerCased = str.replace(regex, "").toLowerCase();
+  let n = lowerCased.length;
+
+  for (let i = 0; i < Math.floor(n / 2); i++) {
+    if (lowerCased[i] !== lowerCased[n - i - 1]) {
+      return false;
+    }
+  }
   return true;
 }
 
