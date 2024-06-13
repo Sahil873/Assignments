@@ -39,11 +39,90 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
+
+const { v4: uuidv4 } = require("uuid");
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(bodyParser.json());
+
+let allTodos = [];
+
+function findTodo(arr, id) {
+  let todoExists = false;
+  // filtering out old todo
+  arr = arr.filter((todo) => {
+    todo.id === id && (todoExists = true); // todo exist
+    return todo.id !== id;
+  });
+
+  return [arr, todoExists];
+}
+
+app.get("/todos", (req, res) => {
+  res.json(allTodos);
+});
+
+app.get("/todos/:id", (req, res) => {
+  const { id } = req.params;
+  let myTodo = null;
   
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+  allTodos.forEach((todo) => {
+    if (todo.id === id) {
+      myTodo = todo;
+      return;
+    }
+  })
+
+  if (!myTodo) {
+    return res.status(404).send("Not found"); // 404 Not Found if not found.
+  }
+
+  res.json(myTodo); // 200 OK with the todo item in JSON format if found
+});
+
+app.post("/todos", (req, res) => {
+  const id = uuidv4();
+  const todo = { ...req.body, id }; // creating a new todo from body with unique id
+  allTodos.push(todo); // adding to all todos.
+  res.status(201).json(todo);
+});
+
+app.put("/todos/:id", (req, res) => {
+  const { id } = req.params;
+  const newTodo = { ...req.body, id }; // retrieving body of new todo, maintaining old id
+
+  // finding todo, if exists filtering out todo
+  [allTodos, todoExists] = findTodo(allTodos, id);
+
+  //todo doesnt exist
+  if (!todoExists) {
+    return res.status(404).send("Not Found");
+  }
+
+  //todo exists
+  allTodos.push(newTodo); // adding new todo
+  res.send("OK");
+});
+
+app.delete("/todos/:id", (req, res) => {
+  const { id } = req.params;
+
+  // finding todo, if exists filtering out todo
+  [allTodos, todoExists] = findTodo(allTodos, id);
+
+  //todo doesnt exist
+  if (!todoExists) {
+    return res.status(404).send("Not Found");
+  }
+
+  res.send("OK");
+});
+
+app.get("*", (req, res) => {
+  res.status(404).send("Route not found");
+});
+
+module.exports = app;
