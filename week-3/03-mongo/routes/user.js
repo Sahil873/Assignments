@@ -10,7 +10,7 @@ router.post("/signup", async (req, res) => {
 
   const userExists = await User.findOne({ username: username });
   if (userExists) {
-    res.status(400).json({ msg: "Admin already exists" });
+    res.status(400).json({ msg: "User already exists" });
     return;
   }
 
@@ -37,13 +37,13 @@ router.post("/courses/:courseId", userMiddleware, async (req, res) => {
 
   const courseExists = await Course.findById(courseId);
   if (!courseExists) {
-    res.status(411).json({ msg: "Course doesn't exist in Course DB" });
+    res.status(403).json({ msg: "Course doesn't exist in Course DB" });
     return;
   }
 
   const updatedUser = await User.findOneAndUpdate(
     { username },
-    { $push: { purchasedCourses: courseExists._id } },
+    { $push: { purchasedCourses: courseId } },
     { new: true }
   );
   console.log(updatedUser);

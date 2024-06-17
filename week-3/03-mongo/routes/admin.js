@@ -10,7 +10,7 @@ router.post("/signup", async (req, res) => {
 
   const adminExists = await Admin.findOne({ username: username });
   if (adminExists) {
-    res.status(400).json({ msg: "Admin already exists" });
+    res.status(403).json({ msg: "Admin already exists" });
     return;
   }
 
