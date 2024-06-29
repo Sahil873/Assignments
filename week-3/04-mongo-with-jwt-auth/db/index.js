@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 
 // Connect to MongoDB
 mongoose
-  .connect(
-    "mongodb+srv://SahilPatil:fZK3RWjY7y34%40!d@cluster0.m7ynxmn.mongodb.net/CourseSellingWithJWT"
-  )
+  .connect("Your Mongo URL")
   .then((res) => console.log("Connected to DB"));
 
 // Define schemas
