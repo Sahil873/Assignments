@@ -1,0 +1,125 @@
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid grey;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.user > button {
+  cursor: pointer;
+  font-size: 1rem;
+  border: none;
+  background-color: black;
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+#signin {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+#logout {
+  height: 2rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-left: 0.25rem;
+}
+
+/* Form css */
+.form {
+  margin-top: 1rem;
+  padding-inline: 0.5rem;
+  height: calc(100vh - 5rem);
+
+  display: grid;
+  place-content: center;
+}
+
+.inputs {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs input {
+  font-size: 1rem;
+
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.inputs > * + * {
+  margin-top: 0.5rem;
+}
+
+.inputs input::placeholder {
+  text-align: center;
+}
+
+.form button {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  border-radius: 1rem;
+  padding-block: 0.5rem;
+}
+
+/* Todos css */
+.todos {
+  padding-inline: 0.5rem;
+  height: calc(100vh - 5rem);
+}
+
+.todoInputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 5rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid grey;
+}
+
+.todoInputs {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 1rem;
+}
+
+.todoInputs input {
+  padding: 0.35rem 0.5rem;
+  font-size: 1rem;
+}
+
+.todoInputContainer button {
+  height: 100%;
+  aspect-ratio: 1;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.userTodos {
+  padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+}
